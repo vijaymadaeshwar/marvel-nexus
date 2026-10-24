@@ -1,0 +1,756 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://image.tmdb.org" crossorigin>
+<link rel="preconnect" href="https://cdn.simpleicons.org">
+<link rel="preconnect" href="https://www.youtube.com">
+<link rel="preconnect" href="https://www.google-analytics.com">
+<title>Marvel Nexus</title>
+<meta name="description" content="Marvel Nexus - the interactive Marvel timeline. Chart the whole saga from Iron Man to Secret Wars: build your personal watchlist, follow story-order pathways for new fans, and track your progress across the MCU, Marvel Television, and Disney+ shows.">
+<link rel="canonical" href="https://marvelnexus.com/">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#08120b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Marvel Nexus">
+<meta property="og:title" content="Marvel Nexus - the whole Marvel timeline">
+<meta property="og:description" content="Every Marvel movie, television series and Disney+ show charted as one interactive timeline - from Iron Man to Secret Wars. Build a watchlist, follow pathways, and track your journey across the multiverse.">
+<meta property="og:url" content="https://marvelnexus.com/">
+<meta property="og:image" content="https://marvelnexus.com/assets/Desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Marvel Nexus - the whole Marvel timeline">
+<meta name="twitter:description" content="The complete Marvel timeline - movies, series and shows across every universe, mapped as one interactive atlas.">
+<meta name="twitter:image" content="https://marvelnexus.com/assets/Desktop.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://marvelnexus.com/#website",
+      "url": "https://marvelnexus.com/",
+      "name": "Marvel Nexus",
+      "alternateName": "Marvel Timeline",
+      "description": "An interactive timeline of Marvel movies and television series, from Iron Man to Secret Wars - explore every universe, build a watchlist, and track your journey across the multiverse."
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://marvelnexus.com/#organization",
+      "name": "Marvel Nexus",
+      "url": "https://marvelnexus.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://marvelnexus.com/assets/logo.png",
+        "contentUrl": "https://marvelnexus.com/assets/logo.png",
+        "width": 474,
+        "height": 474
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  try { document.documentElement.dataset.theme = localStorage.getItem("nexus.theme") || "aperture"; } catch (e) {}
+</script>
+<link rel="preload" as="image" href="assets/background.jpg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a href="#scroll-area" class="skip-nav" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;padding:8px 16px;background:#08120b;color:#7fffd4;font:700 14px var(--font-body);border-radius:0 0 8px 8px;">Skip to timeline</a>
+<style>.skip-nav:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto;}</style>
+
+<noscript>
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#08120b;color:#c9cdd3;font-family:system-ui,sans-serif;text-align:center;padding:32px;">
+<div><h1 style="color:#e6f1ff;margin-bottom:12px;">Marvel Nexus</h1><p>JavaScript is required to view the interactive Marvel timeline.<br><br>Please enable JavaScript in your browser and reload.</p></div>
+</div>
+</noscript>
+
+<div class="theme-stage" aria-hidden="true">
+  <div class="theme-stage__shade" aria-hidden="true"></div>
+</div>
+
+<div class="app">
+
+  <header class="app-header">
+    <div class="header-top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="brand-text">
+          <h1>Marvel Nexus</h1>
+          <p class="tagline">The whole Marvel timeline, charted as one atlas — every movie, television series and Disney+ show from Iron Man to Secret Wars, with pathways for new fans, essentials, and the road to Avengers: Doomsday.</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <div class="timeline-control-stack">
+          <div class="timeline-control-row">
+            <div class="search-box">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M11.5 11.5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <input type="text" id="search-input" placeholder="Title, year, director…" autocomplete="off" aria-label="Search movies, years, directors, sagas, and phases">
+            </div>
+
+            <div class="sort-toggle" role="tablist" aria-label="Timeline mode">
+              <button class="sort-btn is-active" data-sort="story" role="tab" aria-selected="true">In-universe</button>
+              <button class="sort-btn" data-sort="release" role="tab" aria-selected="false">Release order</button>
+            </div>
+          </div>
+          <div class="timeline-tools" aria-label="Timeline navigation and filters">
+            <div class="filter-actions">
+              <div class="universe-picker" id="universe-picker">
+                <button class="universe-picker__trigger" id="universe-picker-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="universe-picker__label">Universe</span>
+                  <span id="universe-picker-value">All universes</span>
+                  <span class="progress-ring progress-ring--small" id="universe-picker-ring" aria-hidden="true"></span>
+                </button>
+                <div class="universe-picker__menu" id="universe-picker-menu" role="listbox" hidden></div>
+              </div>
+              <label class="route-filter">
+                <span>Follow</span>
+                <select id="route-filter" aria-label="Follow a character or event series">
+                  <option value="">All Movies &amp; Shows</option>
+                  <option value="marvel-television">Marvel Television</option>
+                  <option value="marvel-on-disney-plus">Marvel on Disney+</option>
+                  <option value="spider-man">Spider-Man</option>
+                  <option value="wolverine">Wolverine</option>
+                  <option value="deadpool">Deadpool</option>
+                  <option value="avengers">Avengers</option>
+                </select>
+              </label>
+              <output id="result-count" aria-live="polite"></output>
+            </div>
+            <div class="theme-toggle" role="group" aria-label="Background atmosphere">
+              <button type="button" class="theme-toggle__btn is-active" data-theme-option="aperture" aria-pressed="true">Doctor Doom</button>
+              <button type="button" class="theme-toggle__btn" data-theme-option="earth" aria-pressed="false">Avengers: Doomsday</button>
+              <button type="button" class="theme-toggle__btn" data-theme-option="endgame" aria-pressed="false">X-Men</button>
+            </div>
+            <button type="button" class="experience-btn" id="sound-toggle" aria-pressed="true" title="Mute the atlas" aria-label="Toggle atlas sound">
+              <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/>
+                <path class="sound-icon__waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+                <path class="sound-icon__strike" d="M3.5 4l17 16" stroke="#ff6b57" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button type="button" class="experience-btn" id="gauntlet-btn" aria-pressed="false" title="Infinity Gauntlet — collect the six stones across the timeline" aria-label="Infinity Gauntlet collection">&nbsp;Gauntlet <b class="gauntlet-count" id="gauntlet-count">0/6</b></button>
+          </div>
+          <div class="era-bar" id="era-bar" aria-label="Era filters and sections">
+            <button type="button" class="era-bar__section-toggle" id="era-section-toggle" aria-pressed="false">Era sections</button>
+            <div class="era-bar__chips" id="phase-chips" role="group" aria-label="Filter the timeline by phase"></div>
+          </div>
+          <div class="pathway-bar" aria-label="Watch pathways and filters">
+            <div class="pathway-bar__presets" role="group" aria-label="Watch pathway">
+              <button type="button" class="pathway-btn is-active" data-priority="" aria-pressed="true">New to Marvel</button>
+              <button type="button" class="pathway-btn" data-priority="recommended" aria-pressed="false">Prepare for Doomsday</button>
+              <button type="button" class="pathway-btn" data-priority="essential" aria-pressed="false">Essentials</button>
+            </div>
+            <div class="pathway-bar__types" role="group" aria-label="Filter by type">
+              <button type="button" class="chip-filter is-active" data-type="" aria-pressed="true">All</button>
+              <button type="button" class="chip-filter" data-type="movie" aria-pressed="false">Films</button>
+              <button type="button" class="chip-filter" data-type="series" aria-pressed="false">Series</button>
+            </div>
+            <label class="chip-toggle" title="Hide titles you've already watched">
+              <input type="checkbox" id="unwatched-toggle">
+              <span>Unwatched only</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="timeline-wrapper">
+    <div class="doomsday-countdown" id="doomsday-countdown">
+      <button class="doomsday-countdown__open" id="doomsday-countdown-open" type="button" aria-label="Open Avengers: Doomsday details">
+        <span class="doomsday-countdown__signal" aria-hidden="true"></span>
+        <span class="doomsday-countdown__title">
+          <small>Event horizon</small>
+          <strong>Avengers: Doomsday</strong>
+        </span>
+        <time class="doomsday-countdown__timer" datetime="2026-12-18">
+          <span><strong id="doomsday-days">000</strong><small>Days</small></span>
+          <i aria-hidden="true">:</i>
+          <span><strong id="doomsday-hours">00</strong><small>Hrs</small></span>
+          <i aria-hidden="true">:</i>
+          <span><strong id="doomsday-minutes">00</strong><small>Min</small></span>
+          <i aria-hidden="true">:</i>
+          <span><strong id="doomsday-seconds">00</strong><small>Sec</small></span>
+        </time>
+        <span class="doomsday-countdown__date">Dec 18 2026</span>
+      </button>
+      <button class="doomsday-countdown__close" id="doomsday-countdown-close" type="button" aria-label="Dismiss Avengers: Doomsday countdown">&times;</button>
+    </div>
+    <button class="cast-launch" id="cast-launch" type="button" aria-haspopup="dialog" aria-expanded="false">
+      <span class="cast-launch__mark" aria-hidden="true"></span>
+      Cast &amp; Characters
+    </button>
+    <button class="journey-launch" id="journey-launch" type="button">
+      <span aria-hidden="true"></span>
+      My Viewing Orbit
+      <strong id="journey-launch-progress">0%</strong>
+    </button>
+    <button class="watchlist-launch" id="watchlist-launch" type="button" aria-haspopup="dialog" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      Watchlist
+      <strong class="watchlist-launch__count" id="watchlist-launch-count" data-watchlist-count>0</strong>
+    </button>
+    <div class="crossover-path-bar" id="crossover-path-bar" hidden role="status" aria-live="polite">
+      <span class="crossover-path-bar__pulse" aria-hidden="true"></span>
+      <span id="crossover-path-summary"></span>
+      <button type="button" id="crossover-path-clear">Clear path</button>
+    </div>
+    <div class="butterfly-bar" id="butterfly-bar" hidden role="status" aria-live="polite">
+      <span class="butterfly-bar__orb" aria-hidden="true"></span>
+      <span id="butterfly-summary"></span>
+      <button type="button" id="butterfly-clear">Restore timeline</button>
+    </div>
+    <div class="teaser-bar" id="teaser-bar" hidden role="status" aria-live="polite">
+      <span class="teaser-bar__orb" aria-hidden="true"></span>
+      <span id="teaser-summary"></span>
+      <button type="button" id="teaser-clear">Clear scan</button>
+    </div>
+    <div class="variant-bar" id="variant-bar" hidden role="status" aria-live="polite">
+      <span class="variant-bar__mark" aria-hidden="true"></span>
+      <span id="variant-summary"></span>
+      <button type="button" id="variant-clear">End scan</button>
+    </div>
+    <div class="dna-bar" id="dna-bar" hidden role="status" aria-live="polite">
+      <span class="dna-bar__helix" aria-hidden="true"></span>
+      <span id="dna-summary"></span>
+      <button type="button" id="dna-clear">Clear DNA</button>
+    </div>
+    <div class="network-path-bar" id="network-path-bar" hidden role="status" aria-live="polite">
+      <span class="network-path-bar__gem" id="network-path-gem" aria-hidden="true"></span>
+      <span id="network-path-summary"></span>
+      <button type="button" id="network-path-clear">Clear network</button>
+    </div>
+    <div class="scroll-hint" id="scroll-hint" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      scroll the atlas  tap or hover a star to light its constellation  long-press or right-click a star for actions  to hop between stars
+    </div>
+
+    <div class="scroll-area" id="scroll-area">
+      <div class="timeline-stage" id="timeline-stage">
+        <div class="timeline-content" id="timeline-content">
+          <div class="canvas" id="canvas">
+            <svg id="connectors" class="connectors-svg"></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="timeline-bottom-tools">
+    <div class="mode-note" id="mode-note">
+      <div class="mode-note__copy"><strong>In-universe order</strong> lines titles up by when their story takes place, not when they premiered — that's why Captain America: The First Avenger (1942) and X-Men: First Class (1962) sit on the far left. Titles without a known in-story date fall back to their release year.</div>
+      <button class="mode-note__close" id="mode-note-close" type="button" aria-label="Dismiss in-universe order notice"></button>
+    </div>
+    <div class="command-palette" id="command-palette" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
+      <div class="command-palette__box">
+        <label class="command-palette__search">
+          <span class="command-palette__slash" aria-hidden="true">/</span>
+          <input type="text" id="command-input" placeholder="Type a command or title…" autocomplete="off" aria-label="Search commands and titles">
+          <kbd>esc</kbd>
+        </label>
+        <ul class="command-palette__list" id="command-list" role="listbox" tabindex="-1"></ul>
+      </div>
+    </div>
+    <div class="zoom-controls" aria-label="Timeline zoom controls">
+      <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+      <button type="button" id="zoom-reset" aria-label="Reset timeline zoom">100%</button>
+      <button type="button" id="zoom-out" aria-label="Zoom out">-</button>
+      <button type="button" id="zoom-fit" aria-label="Fit the complete timeline on screen">Fit</button>
+    </div>
+    <div class="film-strip" id="film-strip" aria-label="Year film strip" hidden>
+      <div class="film-strip__header">
+        <span>Year explorer</span>
+        <button type="button" id="film-strip-close" aria-label="Close film strip"></button>
+      </div>
+      <div class="film-strip__track" id="film-strip-track"></div>
+    </div>
+    <div class="feature-dock" id="feature-dock" aria-label="Nexus operations">
+      <div class="feature-dock__actions">
+        <button type="button" class="experience-btn" id="variant-btn" aria-pressed="false" title="Variant scanner — flag competing variants across lanes" aria-label="Variant scanner">&nbsp;Variants</button>
+        <button type="button" class="experience-btn" id="playhead-btn" aria-pressed="false" title="Timeline playhead — scrub the frontier across the story years" aria-label="Timeline playhead">&nbsp;Playhead</button>
+        <button type="button" class="experience-btn" id="optimizer-btn" aria-pressed="false" title="Watch-order optimizer — the best order to catch up before Doomsday" aria-label="Watch-order optimizer">&nbsp;Optimizer</button>
+        <button type="button" class="experience-btn" id="stats-btn" aria-pressed="false" title="Personal stats profile — your journey across the multiverse" aria-label="Personal stats profile">&nbsp;Stats</button>
+        <button type="button" class="experience-btn" id="achievements-btn" aria-pressed="false" title="Achievements — trophies from across the multiverse" aria-label="Achievements">&nbsp;Awards <b class="dock-count" id="achievements-count">0</b></button>
+        <button type="button" class="experience-btn" id="commute-btn" aria-pressed="false" title="Commute mode — a scrollable offline watch-order list" aria-label="Commute mode">&nbsp;Commute</button>
+        <button type="button" class="experience-btn" id="villains-btn" aria-pressed="false" title="Villain timeline — the big bad of every era and every title" aria-label="Villain timeline">&nbsp;Villains</button>
+        <button type="button" class="experience-btn" id="credits-btn" aria-pressed="false" title="Post-credit tracker — mark every stinger you have seen" aria-label="Post-credit tracker">&nbsp;Credits <b class="dock-count" id="credits-count">0</b></button>
+        <button type="button" class="experience-btn" id="eggs-btn" aria-pressed="false" title="Easter-egg hunt — nine secrets hiding in plain sight" aria-label="Easter-egg hunt">&nbsp;Eggs <b class="dock-count" id="eggs-count">0/9</b></button>
+        <button type="button" class="experience-btn" id="share-btn" aria-pressed="false" title="Share card — export your journey as a PNG" aria-label="Share your journey card">&nbsp;Share</button>
+        <button type="button" class="experience-btn" id="nostalgia-btn" aria-pressed="false" title="Nostalgia mode — see the saga through the years of your life" aria-label="Nostalgia mode">&nbsp;Nostalgia</button>
+        <button type="button" class="experience-btn experience-btn--accent" id="surprise-btn" aria-pressed="false" title="Surprise me — open a random title from the atlas" aria-label="Surprise me with a random title">&nbsp;Surprise</button>
+        <button type="button" class="experience-btn" id="quiz-btn" aria-pressed="false" title="Timeline Quiz — test your Marvel knowledge" aria-label="Timeline Quiz">&nbsp;Quiz</button>
+        <button type="button" class="experience-btn" id="watchparty-btn" aria-pressed="false" title="Watch Party — sync your journey with friends" aria-label="Watch Party">&nbsp;Party</button>
+      </div>
+      <div class="playhead-bar" id="playhead-bar" hidden role="group" aria-label="Timeline playhead scrubber">
+        <span class="playhead-bar__label">Frontier</span>
+        <div class="playhead-track" id="playhead-track" role="slider" tabindex="0" aria-label="Scrub the frontier story year" aria-valuemin="1940" aria-valuemax="2040" aria-valuenow="2040">
+          <span class="playhead-track__fill" id="playhead-fill"></span>
+          <span class="playhead-handle" id="playhead-handle"><i aria-hidden="true"></i></span>
+        </div>
+        <strong class="playhead-year" id="playhead-year">—</strong>
+        <button type="button" class="playhead-clear" id="playhead-clear">Reset</button>
+    </div>
+  </div>
+
+  <!-- Mobile bottom nav bar -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <button class="mobile-nav__item" data-nav="search" aria-label="Search">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      <span>Search</span>
+    </button>
+    <button class="mobile-nav__item" data-nav="timeline" aria-label="Timeline">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/></svg>
+      <span>Timeline</span>
+    </button>
+    <button class="mobile-nav__item" data-nav="journey" aria-label="My Journey">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg>
+      <span>Journey</span>
+    </button>
+    <button class="mobile-nav__item" data-nav="watchlist" aria-label="Watchlist">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <span>Watchlist</span>
+    </button>
+    <button class="mobile-nav__item" data-nav="more" aria-label="More">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg>
+      <span>More</span>
+    </button>
+  </nav>
+
+  <!-- Mobile "More" sheet -->
+  <div class="mobile-more-sheet" id="mobile-more-sheet" hidden>
+    <div class="mobile-more-sheet__backdrop" id="mobile-more-backdrop"></div>
+    <div class="mobile-more-sheet__panel">
+      <div class="mobile-more-sheet__handle"></div>
+      <h3>More tools</h3>
+      <div class="mobile-more-sheet__grid" id="mobile-more-grid">
+        <button class="mobile-more-sheet__item" data-more="villains"><span class="mobile-more-sheet__icon"> villain</span>Villains</button>
+        <button class="mobile-more-sheet__item" data-more="credits"><span class="mobile-more-sheet__icon"> credits</span>Credits</button>
+        <button class="mobile-more-sheet__item" data-more="eggs"><span class="mobile-more-sheet__icon"> eggs</span>Eggs</button>
+        <button class="mobile-more-sheet__item" data-more="stats"><span class="mobile-more-sheet__icon"> stats</span>Stats</button>
+        <button class="mobile-more-sheet__item" data-more="achievements"><span class="mobile-more-sheet__icon"> awards</span>Awards</button>
+        <button class="mobile-more-sheet__item" data-more="optimizer"><span class="mobile-more-sheet__icon"> opt</span>Optimizer</button>
+        <button class="mobile-more-sheet__item" data-more="commute"><span class="mobile-more-sheet__icon"> commute</span>Commute</button>
+        <button class="mobile-more-sheet__item" data-more="variants"><span class="mobile-more-sheet__icon"> var</span>Variants</button>
+        <button class="mobile-more-sheet__item" data-more="quiz"><span class="mobile-more-sheet__icon"> quiz</span>Quiz</button>
+        <button class="mobile-more-sheet__item" data-more="party"><span class="mobile-more-sheet__icon"> party</span>Party</button>
+        <button class="mobile-more-sheet__item" data-more="share"><span class="mobile-more-sheet__icon"> share</span>Share</button>
+        <button class="mobile-more-sheet__item" data-more="nostalgia"><span class="mobile-more-sheet__icon"> retro</span>Nostalgia</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile search overlay -->
+  <div class="mobile-search" id="mobile-search" hidden>
+    <div class="mobile-search__header">
+      <div class="mobile-search__input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="mobile-search-input" placeholder="Search titles, actors, directors..." autocomplete="off" aria-label="Search">
+        <button class="mobile-search__voice" id="mobile-search-voice" aria-label="Voice search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="1" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 01-14 0v-1"/><line x1="12" y1="18" x2="12" y2="23"/></svg>
+        </button>
+      </div>
+      <button class="mobile-search__close" id="mobile-search-close">Cancel</button>
+    </div>
+    <div class="mobile-search__recent" id="mobile-search-recent">
+      <h4>Recent searches</h4>
+      <div class="mobile-search__recent-list" id="mobile-search-recent-list"></div>
+    </div>
+    <div class="mobile-search__results" id="mobile-search-results" hidden></div>
+  </div>
+
+  <!-- Pull to refresh indicator -->
+  <div class="ptr-indicator" id="ptr-indicator" hidden>
+    <div class="ptr-indicator__spinner"></div>
+    <span>Refreshing timeline...</span>
+  </div>
+
+  <!-- Onboarding overlay (first visit) -->
+  <div class="onboarding" id="onboarding" hidden>
+    <div class="onboarding__backdrop"></div>
+    <div class="onboarding__card">
+      <div class="onboarding__step" id="onboarding-step-1">
+        <div class="onboarding__icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><circle cx="6" cy="12" r="2" fill="#3ddc84"/><circle cx="12" cy="12" r="2" fill="#3ddc84"/><circle cx="18" cy="12" r="2" fill="#3ddc84"/></svg>
+        </div>
+        <h2>Welcome to Marvel Nexus</h2>
+        <p>Scroll the timeline to explore every Marvel movie, series, and show — from Iron Man to Secret Wars.</p>
+      </div>
+      <div class="onboarding__step" id="onboarding-step-2" hidden>
+        <div class="onboarding__icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="1.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h2>Tap any star</h2>
+        <p>Tap a movie node to see details, or <strong>long-press</strong> for quick actions like watchlist and crossover paths.</p>
+      </div>
+      <div class="onboarding__step" id="onboarding-step-3" hidden>
+        <div class="onboarding__icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="1.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/><path d="M5 3v18M19 3v18"/></svg>
+        </div>
+        <h2>Pinch to zoom</h2>
+        <p>Use two fingers to pinch-zoom, or swipe to pan across the multiverse timeline.</p>
+      </div>
+      <div class="onboarding__dots">
+        <span class="onboarding__dot is-active"></span>
+        <span class="onboarding__dot"></span>
+        <span class="onboarding__dot"></span>
+      </div>
+      <button class="onboarding__btn" id="onboarding-btn">Next</button>
+      <button class="onboarding__skip" id="onboarding-skip">Skip</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<aside class="cast-panel" id="cast-panel" role="dialog" aria-modal="true" aria-labelledby="cast-panel-title" hidden>
+  <div class="cast-panel__header">
+    <div>
+      <span>Follow a character</span>
+      <h2 id="cast-panel-title">Cast &amp; Characters</h2>
+    </div>
+    <button type="button" id="cast-panel-close" aria-label="Close cast network panel">&times;</button>
+  </div>
+  <div class="cast-tabs" role="tablist" aria-label="Cast views">
+    <button type="button" id="cast-tab-characters" role="tab" aria-selected="true" aria-controls="cast-list">Characters</button>
+    <button type="button" id="cast-tab-network" role="tab" aria-selected="false" aria-controls="cast-network">Network</button>
+    <button type="button" id="cast-tab-connections" role="tab" aria-selected="false" aria-controls="cast-connections">Connections</button>
+  </div>
+  <div class="cast-search">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M11.5 11.5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <input type="text" id="cast-search-input" placeholder="Search actors, characters, films…" autocomplete="off" aria-label="Search cast and characters">
+  </div>
+  <div class="cast-line-filters" id="cast-line-filters" aria-label="Filter characters by universe"></div>
+  <output class="cast-result-count" id="cast-result-count" aria-live="polite"></output>
+  <div class="cast-list" id="cast-list" role="listbox" aria-label="Characters" tabindex="0"></div>
+  <div class="cast-network" id="cast-network" role="region" aria-label="Character network graph" tabindex="0" hidden></div>
+  <div class="cast-connections" id="cast-connections" role="region" aria-label="Shared-title connections" tabindex="0" hidden></div>
+  <footer class="cast-panel__actions">
+    <span class="cast-panel__selected" id="cast-selected-count" aria-live="polite">0 selected</span>
+    <button type="button" id="cast-clear-all" disabled>Clear selection</button>
+  </footer>
+  <p class="cast-panel__hint">Select one or more characters to light up every mapped appearance across the timeline.</p>
+</aside>
+
+<aside class="watchlist-panel" id="watchlist-panel" role="dialog" aria-modal="true" aria-labelledby="watchlist-panel-title" hidden>
+  <div class="watchlist-panel__header">
+    <div>
+      <span>Saved for later</span>
+      <h2 id="watchlist-panel-title">Watchlist &amp; Planner</h2>
+    </div>
+    <button type="button" id="watchlist-panel-close" aria-label="Close watchlist panel">&times;</button>
+  </div>
+  <div class="watchlist-panel__summary">
+    <div><span>Total titles</span><strong data-watchlist-count>0</strong></div>
+    <div><span>Watch time</span><strong id="watchlist-total-time">—</strong></div>
+  </div>
+  <div class="watchlist-list" id="watchlist-list" role="list"></div>
+  <div class="watchlist-panel__actions">
+    <button type="button" id="watchlist-share">Copy share link</button>
+    <button type="button" id="watchlist-clear" disabled>Clear all</button>
+  </div>
+  <p class="watchlist-panel__hint">Saved in this browser only. Star any title in its detail panel to add it here.</p>
+</aside>
+
+<!-- Floating Poster Preview -->
+<div class="poster-preview" id="poster-preview">
+  <div class="poster-preview-media">
+    <img id="poster-preview-img" src="" alt="Movie Poster" loading="lazy" draggable="false">
+    <div class="poster-preview-shine" aria-hidden="true"></div>
+  </div>
+  <div class="poster-preview-info">
+    <strong id="poster-preview-title"></strong>
+    <div class="poster-preview-meta">
+      <span id="poster-preview-year"></span>
+      <span id="poster-preview-runtime"></span>
+      <span id="poster-preview-rating"></span>
+    </div>
+    <div class="poster-preview-box-office">
+      <span id="poster-preview-metric-label">Worldwide</span>
+      <strong id="poster-preview-box-office"></strong>
+    </div>
+  </div>
+</div>
+<div class="station-tooltip" id="station-tooltip" role="tooltip"></div>
+
+<div class="overlay" id="overlay"></div>
+<aside class="detail-panel" id="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-heading" aria-hidden="true">
+  <button class="detail-close" id="detail-close" aria-label="Close">&times;</button>
+  <div id="detail-content"></div>
+</aside>
+
+<div class="dna-picker" id="dna-picker" role="dialog" aria-modal="true" aria-label="Shared DNA picker" hidden>
+  <div class="dna-picker__head">
+    <span>Shared DNA</span>
+    <button type="button" class="dna-picker__close" id="dna-picker-close" aria-label="Close shared DNA picker">&times;</button>
+  </div>
+  <p class="dna-picker__hint">Pick an actor to light up every title their DNA threads through.</p>
+  <div class="dna-picker__list" id="dna-picker-list"></div>
+</div>
+
+<aside class="tva-dossier" id="tva-dossier" role="dialog" aria-modal="true" aria-labelledby="dossier-title" hidden>
+  <button type="button" class="tva-dossier__close" id="tva-dossier-close" aria-label="Close TVA dossier">&times;</button>
+  <div class="tva-dossier__content" id="tva-dossier-content"></div>
+</aside>
+
+<aside class="gauntlet-panel" id="gauntlet-panel" role="dialog" aria-modal="true" aria-labelledby="gauntlet-title" hidden>
+  <button type="button" class="gauntlet-panel__close" id="gauntlet-panel-close" aria-label="Close gauntlet">&times;</button>
+  <div class="gauntlet-panel__head">
+    <span class="gauntlet-panel__eyebrow">Infinity Saga</span>
+    <h2 id="gauntlet-title">Infinity Gauntlet</h2>
+  </div>
+  <div class="gauntlet-tabs" role="tablist" aria-label="Gauntlet views">
+    <button type="button" class="gauntlet-tab is-active" id="gauntlet-tab-visual" role="tab" aria-selected="true" aria-controls="gauntlet-visual">Gauntlet</button>
+    <button type="button" class="gauntlet-tab" id="gauntlet-tab-timeline" role="tab" aria-selected="false" aria-controls="gauntlet-timeline">Timeline</button>
+  </div>
+  <div class="gauntlet-panel__body">
+    <div class="gauntlet-visual" id="gauntlet-visual" role="region" aria-label="Infinity Gauntlet with six gem slots"></div>
+    <div class="gauntlet-timeline" id="gauntlet-timeline" hidden></div>
+  </div>
+  <footer class="gauntlet-panel__foot">
+    <span id="gauntlet-status"></span>
+    <button type="button" id="gauntlet-reset">Reset collection</button>
+  </footer>
+</aside>
+
+<aside class="achievements-panel" id="achievements-panel" role="dialog" aria-modal="true" aria-labelledby="achievements-title" hidden>
+  <button type="button" class="achievements-panel__close" id="achievements-panel-close" aria-label="Close achievements">&times;</button>
+  <div class="achievements-panel__head">
+    <span class="achievements-panel__eyebrow">Multiverse honours</span>
+    <h2 id="achievements-title">Achievements</h2>
+    <p>Feats logged by the TVA across your timeline.</p>
+  </div>
+  <div class="achievements-list" id="achievements-list" role="list"></div>
+  <footer class="achievements-panel__foot">
+    <span id="achievements-progress"></span>
+  </footer>
+</aside>
+
+<div class="commute-mode" id="commute-mode" role="dialog" aria-modal="true" aria-labelledby="commute-title" hidden>
+  <header class="commute-mode__head">
+    <h2 id="commute-title">Commute mode</h2>
+    <span id="commute-mode-count"></span>
+    <button type="button" class="commute-mode__close" id="commute-mode-close" aria-label="Close commute mode">&times;</button>
+  </header>
+  <div class="commute-mode__toolbar">
+    <label class="commute-mode__search">
+      <input type="search" id="commute-search" placeholder="Search the commute list…" aria-label="Search commute list" autocomplete="off">
+    </label>
+    <div class="commute-mode__order" id="commute-order" role="group" aria-label="Commute order">
+      <button type="button" class="commute-order" data-commute-order="story" aria-pressed="true">Story</button>
+      <button type="button" class="commute-order" data-commute-order="release" aria-pressed="false">Release</button>
+    </div>
+  </div>
+  <div class="commute-mode__list" id="commute-list" role="list"></div>
+</div>
+
+<div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite" hidden></div>
+
+<div class="stanlee-caption" id="stanlee-caption" aria-live="polite"></div>
+<button type="button" class="stanlee-toggle" id="stanlee-toggle" aria-pressed="false" title="Stan Lee narrator — Excelsior!" aria-label="Toggle the Stan Lee narrator"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor"/><path d="M15 9a4 4 0 0 1 0 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18 6a8 8 0 0 1 0 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+
+<div class="snap-overlay" id="snap-overlay" aria-hidden="true">
+  <div class="snap-overlay__gauntlet" aria-hidden="true"></div>
+  <div class="snap-overlay__flash" aria-hidden="true"></div>
+</div>
+
+<aside class="stats-panel" id="stats-panel" role="dialog" aria-modal="true" aria-labelledby="stats-title" hidden>
+  <button type="button" class="stats-panel__close" id="stats-panel-close" aria-label="Close personal stats">&times;</button>
+  <div class="stats-panel__head">
+    <span class="stats-panel__eyebrow">Personal profile</span>
+    <h2 id="stats-title">Your multiverse, by the numbers</h2>
+  </div>
+  <div class="stats-content" id="stats-content"></div>
+</aside>
+
+<div class="optimizer-panel" id="optimizer-panel" role="dialog" aria-modal="true" aria-labelledby="optimizer-title" hidden>
+  <button type="button" class="optimizer-panel__close" id="optimizer-panel-close" aria-label="Close watch-order optimizer">&times;</button>
+  <div class="optimizer-panel__head">
+    <span class="optimizer-panel__eyebrow">Before Avengers: Doomsday</span>
+    <h2 id="optimizer-title">Watch-order optimizer</h2>
+    <p>Your unwatched titles, in the order that makes catching up easiest.</p>
+  </div>
+  <div class="optimizer-modes" id="optimizer-modes" role="group" aria-label="Optimization strategy">
+    <button type="button" class="optimizer-mode is-active" data-optimizer-mode="story" aria-pressed="true">In-universe order</button>
+    <button type="button" class="optimizer-mode" data-optimizer-mode="release" aria-pressed="false">Release order</button>
+    <button type="button" class="optimizer-mode" data-optimizer-mode="essential" aria-pressed="false">Essentials first</button>
+  </div>
+  <div class="optimizer-list" id="optimizer-list" role="list"></div>
+  <footer class="optimizer-panel__foot">
+    <span id="optimizer-total"></span>
+  </footer>
+</div>
+
+<aside class="experience-panel" id="villains-panel" role="dialog" aria-modal="true" aria-labelledby="villains-title" hidden>
+  <button type="button" class="experience-panel__close" id="villains-panel-close" aria-label="Close villain timeline">&times;</button>
+  <div class="experience-panel__head">
+    <span class="experience-panel__eyebrow">Across the saga</span>
+    <h2 id="villains-title">The Villain Timeline</h2>
+    <p>Every era's big bad, and the nemesis lurking behind each title.</p>
+  </div>
+  <div class="villains-search">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M11.5 11.5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <input type="text" id="villains-search" placeholder="Search villains, actors, titles…" autocomplete="off" aria-label="Search villains">
+  </div>
+  <div class="villains-bigbads" id="villains-bigbads"></div>
+  <h3 class="villains-section">Every title's nemesis</h3>
+  <output class="villains-count" id="villains-count" aria-live="polite"></output>
+  <div class="villains-list" id="villains-list" role="list"></div>
+</aside>
+
+<aside class="experience-panel" id="credits-panel" role="dialog" aria-modal="true" aria-labelledby="credits-title" hidden>
+  <button type="button" class="experience-panel__close" id="credits-panel-close" aria-label="Close post-credit tracker">&times;</button>
+  <div class="experience-panel__head">
+    <span class="experience-panel__eyebrow">Stingers &amp; stings</span>
+    <h2 id="credits-title">Post-Credit Tracker</h2>
+    <p>Mid- and post-credit scenes across every released title — mark them as you go.</p>
+  </div>
+  <div class="credits-search">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M11.5 11.5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <input type="text" id="credits-search" placeholder="Filter titles…" autocomplete="off" aria-label="Filter post-credit scenes">
+  </div>
+  <div class="credits-footer">
+    <output class="credits-total" id="credits-total" aria-live="polite"></output>
+    <button type="button" class="credits-markall" id="credits-markall">Mark all seen</button>
+  </div>
+  <div class="credits-list" id="credits-list" role="list"></div>
+</aside>
+
+<aside class="experience-panel" id="eggs-panel" role="dialog" aria-modal="true" aria-labelledby="eggs-title" hidden>
+  <button type="button" class="experience-panel__close" id="eggs-panel-close" aria-label="Close easter-egg hunt">&times;</button>
+  <div class="experience-panel__head">
+    <span class="experience-panel__eyebrow">Hidden across the atlas</span>
+    <h2 id="eggs-title">Easter-Egg Hunt</h2>
+    <p>Nine eggs are hiding in plain sight. Use the app and you will find them all.</p>
+  </div>
+  <div class="eggs-list" id="eggs-list" role="list"></div>
+  <footer class="experience-panel__foot">
+    <span id="eggs-total"></span>
+  </footer>
+</aside>
+
+<aside class="experience-panel" id="share-panel" role="dialog" aria-modal="true" aria-labelledby="share-title" hidden>
+  <button type="button" class="experience-panel__close" id="share-panel-close" aria-label="Close share card">&times;</button>
+  <div class="experience-panel__head">
+    <span class="experience-panel__eyebrow">Brag responsibly</span>
+    <h2 id="share-title">Share your journey</h2>
+    <p>Your multiverse stats on one card — share it anywhere or save it as a PNG.</p>
+  </div>
+  <div class="share-preview">
+    <canvas id="share-canvas" width="1200" height="630" aria-label="Preview of your journey share card"></canvas>
+  </div>
+  <p class="share-name" id="share-name" aria-live="polite"></p>
+  <footer class="experience-panel__foot">
+    <button type="button" class="experience-btn experience-btn--accent" id="share-download">Share card</button>
+  </footer>
+</aside>
+
+<aside class="experience-panel" id="nostalgia-panel" role="dialog" aria-modal="true" aria-labelledby="nostalgia-title" hidden>
+  <button type="button" class="experience-panel__close" id="nostalgia-panel-close" aria-label="Close nostalgia mode">&times;</button>
+  <div class="experience-panel__head">
+    <span class="experience-panel__eyebrow">Back to your childhood</span>
+    <h2 id="nostalgia-title">Nostalgia Mode</h2>
+    <p>Set your birth year and watch the saga sort itself around the years of your life.</p>
+  </div>
+  <div class="nostalgia-form">
+    <label for="nostalgia-year">Birth year</label>
+    <input type="number" id="nostalgia-year" min="1900" max="2026" inputmode="numeric" placeholder="e.g. 1994" autocomplete="off">
+    <button type="button" class="experience-btn" id="nostalgia-apply">Replay it</button>
+    <button type="button" class="nostalgia-clear" id="nostalgia-clear" disabled>Clear</button>
+  </div>
+  <div class="nostalgia-summary" id="nostalgia-summary" aria-live="polite"></div>
+  <div class="nostalgia-bands" id="nostalgia-bands" role="list"></div>
+</aside>
+
+<dialog class="journey-dialog" id="journey-dialog" aria-labelledby="journey-title">
+  <div class="journey-dialog__header">
+    <div>
+      <span class="journey-dialog__eyebrow">Device-local progress</span>
+      <h2 id="journey-title">My Viewing Orbit</h2>
+    </div>
+    <button class="journey-dialog__close" id="journey-close" type="button" aria-label="Close journey dashboard">&times;</button>
+  </div>
+  <div id="journey-dashboard"></div>
+  <section class="journey-planner" aria-labelledby="journey-planner-title">
+    <div class="journey-planner__header">
+      <div>
+        <span class="journey-dialog__eyebrow">Viewing planner</span>
+        <h3 id="journey-planner-title">When will you finish?</h3>
+      </div>
+      <span class="journey-planner__eta" id="planner-eta" aria-live="polite"></span>
+    </div>
+    <div class="journey-planner__row">
+      <label class="planner-field">
+        <span>Weekly hours</span>
+        <input type="number" id="planner-hours" min="1" max="80" value="8" inputmode="numeric">
+      </label>
+      <label class="planner-field">
+        <span>Target finish date</span>
+        <input type="date" id="planner-target">
+      </label>
+      <label class="chip-toggle chip-toggle--inline" title="Add ~8 min of post-credit scenes to every film">
+        <input type="checkbox" id="planner-credits" checked>
+        <span>Include post-credit scenes</span>
+      </label>
+      <label class="chip-toggle chip-toggle--inline" title="Fog the timeline ahead of your furthest watched title">
+        <input type="checkbox" id="planner-spoilers">
+        <span>Spoiler-safe mode</span>
+      </label>
+    </div>
+    <div class="journey-planner__stats" id="planner-stats" aria-live="polite"></div>
+    <button type="button" class="planner-generate" id="planner-generate">Generate my schedule</button>
+    <div class="journey-planner__schedule" id="planner-schedule" hidden></div>
+    <div class="journey-upcoming" id="journey-upcoming" aria-live="polite"></div>
+  </section>
+  <div class="journey-dialog__actions">
+    <button type="button" id="journey-share">Share progress card</button>
+    <button type="button" id="journey-export">Export backup</button>
+    <button type="button" id="journey-import">Import backup</button>
+    <input id="journey-import-file" type="file" accept="application/json" hidden>
+    <button class="journey-danger" type="button" id="journey-clear">Clear journey</button>
+  </div>
+  <p class="journey-dialog__privacy">Saved only in this browser on this device. Nothing is uploaded.</p>
+</dialog>
+
+<footer class="app-footer">
+  <div class="developer-links" aria-label="About this project">
+    <span>Marvel Nexus a fan-made reference project</span>
+  </div>
+  <p>Fan-made reference project Marvel, the MCU, X-Men and Spider-Man are trademarks of Marvel Studios, Disney, 20th Century Studios and Sony Pictures. Not affiliated with or endorsed by any of them.</p>
+</footer>
+
+<div id="music-player" class="music-player" aria-hidden="true"></div>
+
+<script src="data/movies.inline.js"></script>
+<script src="data/cast.inline.js"></script>
+<script src="data/stones.inline.js"></script>
+<script src="js/timeline-utils.js"></script>
+<script src="js/app.js"></script>
+<script src="js/nexus.js"></script>
+<script src="js/enhance.js"></script>
+<script src="js/nexus-villains.js"></script>
+<script src="js/nexus-postcredits.js"></script>
+<script src="js/nexus-egghunt.js"></script>
+<script src="js/nexus-sharecard.js"></script>
+<script src="js/nexus-nostalgia.js"></script>
+<script src="js/nexus-stanlee.js"></script>
+<script src="js/nexus-surprise.js"></script>
+<script src="js/nexus-progress.js"></script>
+<script src="js/nexus-quiz.js"></script>
+<script src="js/nexus-watchparty.js"></script>
+<script src="js/nexus-mobile.js"></script>
+<script src="js/nexus-analytics.js"></script>
+<script src="js/nexus-secretwars.js"></script>
+<script src="js/nexus-advanced-stats.js"></script>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

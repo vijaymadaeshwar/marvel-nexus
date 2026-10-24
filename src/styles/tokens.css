@@ -1,0 +1,74 @@
+:root {
+  /* Marvel Nexus Design Tokens */
+
+  /* Colors — Purple Marvel Nexus Palette */
+  --nx-bg: #0d1117;
+  --nx-surface: #161b22;
+  --nx-surface-2: #1c2128;
+  --nx-border: rgba(119, 87, 255, 0.12);
+  --nx-border-hover: rgba(119, 87, 255, 0.25);
+
+  --nx-text: #e6edf3;
+  --nx-text-secondary: rgba(230, 237, 243, 0.6);
+  --nx-text-muted: rgba(230, 237, 243, 0.4);
+
+  --nx-purple: #7757FF;
+  --nx-purple-light: #9B7DFF;
+  --nx-purple-dim: rgba(119, 87, 255, 0.15);
+  --nx-purple-glow: rgba(119, 87, 255, 0.4);
+
+  --nx-gold: #FFD700;
+  --nx-red: #E44055;
+  --nx-green: #00A651;
+  --nx-blue: #0077FF;
+  --nx-cyan: #00D4FF;
+
+  /* Spacing */
+  --nx-space-xs: 4px;
+  --nx-space-sm: 8px;
+  --nx-space-md: 16px;
+  --nx-space-lg: 24px;
+  --nx-space-xl: 32px;
+  --nx-space-2xl: 48px;
+
+  /* Typography */
+  --nx-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --nx-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --nx-font-size-xs: 0.7rem;
+  --nx-font-size-sm: 0.8rem;
+  --nx-font-size-md: 0.9rem;
+  --nx-font-size-lg: 1.1rem;
+  --nx-font-size-xl: 1.4rem;
+  --nx-font-size-2xl: 1.8rem;
+
+  /* Radii */
+  --nx-radius-sm: 4px;
+  --nx-radius-md: 8px;
+  --nx-radius-lg: 12px;
+  --nx-radius-xl: 16px;
+  --nx-radius-full: 9999px;
+
+  /* Shadows */
+  --nx-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --nx-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --nx-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --nx-shadow-glow: 0 0 20px var(--nx-purple-glow);
+
+  /* Glass Morphism */
+  --nx-glass-bg: rgba(13, 17, 23, 0.8);
+  --nx-glass-border: rgba(119, 87, 255, 0.15);
+  --nx-glass-blur: blur(12px);
+
+  /* Transitions */
+  --nx-transition-fast: 150ms ease;
+  --nx-transition-normal: 250ms ease;
+  --nx-transition-slow: 400ms ease;
+
+  /* Z-indices */
+  --nx-z-base: 1;
+  --nx-z-sticky: 100;
+  --nx-z-overlay: 500;
+  --nx-z-modal: 1000;
+  --nx-z-tooltip: 1500;
+  --nx-z-toast: 2000;
+}

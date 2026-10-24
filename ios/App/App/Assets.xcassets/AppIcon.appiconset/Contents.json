@@ -1,0 +1,164 @@
+{
+  "images": [
+    {
+      "size": "20x20",
+      "idiom": "universal",
+      "filename": "AppIcon-20.png",
+      "scale": "1x"
+    },
+    {
+      "size": "29x29",
+      "idiom": "universal",
+      "filename": "AppIcon-29.png",
+      "scale": "1x"
+    },
+    {
+      "size": "40x40",
+      "idiom": "universal",
+      "filename": "AppIcon-40.png",
+      "scale": "1x"
+    },
+    {
+      "size": "58x58",
+      "idiom": "universal",
+      "filename": "AppIcon-58.png",
+      "scale": "1x"
+    },
+    {
+      "size": "60x60",
+      "idiom": "universal",
+      "filename": "AppIcon-60.png",
+      "scale": "1x"
+    },
+    {
+      "size": "76x76",
+      "idiom": "universal",
+      "filename": "AppIcon-76.png",
+      "scale": "1x"
+    },
+    {
+      "size": "80x80",
+      "idiom": "universal",
+      "filename": "AppIcon-80.png",
+      "scale": "1x"
+    },
+    {
+      "size": "87x87",
+      "idiom": "universal",
+      "filename": "AppIcon-87.png",
+      "scale": "1x"
+    },
+    {
+      "size": "120x120",
+      "idiom": "universal",
+      "filename": "AppIcon-120.png",
+      "scale": "1x"
+    },
+    {
+      "size": "152x152",
+      "idiom": "universal",
+      "filename": "AppIcon-152.png",
+      "scale": "1x"
+    },
+    {
+      "size": "167x167",
+      "idiom": "universal",
+      "filename": "AppIcon-167.png",
+      "scale": "1x"
+    },
+    {
+      "size": "180x180",
+      "idiom": "universal",
+      "filename": "AppIcon-180.png",
+      "scale": "1x"
+    },
+    {
+      "size": "1024x1024",
+      "idiom": "universal",
+      "filename": "AppIcon-1024.png",
+      "scale": "1x"
+    },
+    {
+      "size": "20x20",
+      "idiom": "universal",
+      "filename": "AppIcon-20.png",
+      "scale": "2x"
+    },
+    {
+      "size": "29x29",
+      "idiom": "universal",
+      "filename": "AppIcon-29.png",
+      "scale": "2x"
+    },
+    {
+      "size": "40x40",
+      "idiom": "universal",
+      "filename": "AppIcon-40.png",
+      "scale": "2x"
+    },
+    {
+      "size": "58x58",
+      "idiom": "universal",
+      "filename": "AppIcon-58.png",
+      "scale": "2x"
+    },
+    {
+      "size": "60x60",
+      "idiom": "universal",
+      "filename": "AppIcon-60.png",
+      "scale": "2x"
+    },
+    {
+      "size": "76x76",
+      "idiom": "universal",
+      "filename": "AppIcon-76.png",
+      "scale": "2x"
+    },
+    {
+      "size": "80x80",
+      "idiom": "universal",
+      "filename": "AppIcon-80.png",
+      "scale": "2x"
+    },
+    {
+      "size": "87x87",
+      "idiom": "universal",
+      "filename": "AppIcon-87.png",
+      "scale": "2x"
+    },
+    {
+      "size": "120x120",
+      "idiom": "universal",
+      "filename": "AppIcon-120.png",
+      "scale": "2x"
+    },
+    {
+      "size": "152x152",
+      "idiom": "universal",
+      "filename": "AppIcon-152.png",
+      "scale": "2x"
+    },
+    {
+      "size": "167x167",
+      "idiom": "universal",
+      "filename": "AppIcon-167.png",
+      "scale": "2x"
+    },
+    {
+      "size": "180x180",
+      "idiom": "universal",
+      "filename": "AppIcon-180.png",
+      "scale": "2x"
+    },
+    {
+      "size": "1024x1024",
+      "idiom": "universal",
+      "filename": "AppIcon-1024.png",
+      "scale": "2x"
+    }
+  ],
+  "info": {
+    "version": 1,
+    "author": "Marvel Nexus"
+  }
+}

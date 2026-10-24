@@ -1,0 +1,26 @@
+/* Keyframes */
+@keyframes nx-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes nx-slide-up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes nx-slide-down { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes nx-scale-in { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes nx-glow-pulse { 0%, 100% { box-shadow: 0 0 8px var(--nx-purple-glow); } 50% { box-shadow: 0 0 24px var(--nx-purple-glow); } }
+@keyframes nx-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes nx-spin { to { transform: rotate(360deg); } }
+@keyframes nx-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes nx-ripple { 0% { transform: scale(0); opacity: 0.6; } 100% { transform: scale(2.5); opacity: 0; } }
+
+/* Utility classes */
+.nx-animate-fade-in { animation: nx-fade-in var(--nx-transition-normal) both; }
+.nx-animate-slide-up { animation: nx-slide-up var(--nx-transition-normal) both; }
+.nx-animate-scale-in { animation: nx-scale-in var(--nx-transition-normal) both; }
+.nx-animate-glow { animation: nx-glow-pulse 2s ease-in-out infinite; }
+.nx-animate-shimmer { animation: nx-shimmer 2s linear infinite; }
+.nx-animate-spin { animation: nx-spin 1s linear infinite; }
+.nx-animate-float { animation: nx-float 3s ease-in-out infinite; }
+
+/* Stagger delays */
+.nx-stagger-1 { animation-delay: 50ms; }
+.nx-stagger-2 { animation-delay: 100ms; }
+.nx-stagger-3 { animation-delay: 150ms; }
+.nx-stagger-4 { animation-delay: 200ms; }
+.nx-stagger-5 { animation-delay: 250ms; }

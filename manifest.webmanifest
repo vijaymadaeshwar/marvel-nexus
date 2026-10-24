@@ -1,0 +1,31 @@
+{
+  "name": "Marvel Nexus — the Marvel timeline",
+  "short_name": "Marvel Nexus",
+  "description": "An interactive timeline of Marvel movies, television series, and Disney+ shows — explore universes, crossover paths, and the cast that connects them.",
+  "lang": "en",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#08120b",
+  "theme_color": "#08120b",
+  "categories": ["entertainment", "movies", "timeline"],
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "474x474",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/favicon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

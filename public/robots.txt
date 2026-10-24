@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Sitemap: https://marvelnexus.com/sitemap.xml
+
+# Marvel Nexus — interactive Marvel timeline
